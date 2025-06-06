@@ -1,14 +1,4 @@
-// categories.js - Common categories configuration
-import { 
-  Headphones, 
-  Watch, 
-  Home, 
-  Smartphone,
-  Laptop,
-  Camera,
-  Gamepad2,
-  Car
-} from 'lucide-react';
+import { Headphones, Watch, Home, Smartphone, Laptop, SmartphoneIcon } from 'lucide-react';
 
 export const categories = [
   {
@@ -23,7 +13,7 @@ export const categories = [
   {
     id: 2,
     name: "Smart Wearables",
-    slug: "smart-wearables", 
+    slug: "smart-wearables",
     icon: Watch,
     description: "Smartwatches, Fitness Trackers",
     color: "bg-blue-100 text-blue-600",
@@ -35,7 +25,7 @@ export const categories = [
     slug: "home-gadgets",
     icon: Home,
     description: "Smart Home, Appliances",
-    color: "bg-green-100 text-green-600", 
+    color: "bg-green-100 text-green-600",
     hoverColor: "hover:bg-green-200"
   },
   {
@@ -57,32 +47,14 @@ export const categories = [
     hoverColor: "hover:bg-indigo-200"
   },
   {
-    id: 6,
-    name: "Cameras",
-    slug: "cameras",
-    icon: Camera,
-    description: "DSLR, Mirrorless, Action Cams",
-    color: "bg-pink-100 text-pink-600",
-    hoverColor: "hover:bg-pink-200"
-  },
-  {
-    id: 7,
-    name: "Gaming",
-    slug: "gaming",
-    icon: Gamepad2,
-    description: "Consoles, Controllers, Games",
-    color: "bg-red-100 text-red-600",
-    hoverColor: "hover:bg-red-200"
-  },
-  {
-    id: 8,
-    name: "Auto Tech",
-    slug: "auto-tech",
-    icon: Car,
-    description: "Car Electronics, GPS",
-    color: "bg-teal-100 text-teal-600",
-    hoverColor: "hover:bg-teal-200"
-  }
+  id: 6,
+  name: "Smartphones",
+  slug: "smartphones",
+  icon: SmartphoneIcon,  // from lucide-react
+  description: "Mobile phones, Smartphones",
+  color: "bg-yellow-100 text-yellow-600",
+  hoverColor: "hover:bg-yellow-200"
+}
 ];
 
 // Helper functions

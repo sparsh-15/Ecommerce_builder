@@ -51,38 +51,40 @@ const ProductGrid = ({
   ];
 
   // Get filtered and sorted products
-  const filteredAndSortedProducts = useMemo(() => {
-    let filtered = products;
+const filteredAndSortedProducts = useMemo(() => {
+  let filtered = products;
 
-    // Apply category filter if specified
-    if (categoryFilter) {
-      filtered = getProductsByCategory(categoryFilter);
-    } else {
-      // Apply active filter
-      switch (activeFilter) {
-        case 'featured':
-          filtered = getFeaturedProducts();
-          break;
-        case 'new':
-          filtered = getNewProducts();
-          break;
-        case 'sale':
-          filtered = getProductsOnSale();
-          break;
-        default:
-          if (activeFilter !== 'all') {
-            filtered = getProductsByCategory(activeFilter);
-          }
-      }
+  // First apply category filter if specified as prop
+  if (categoryFilter) {
+    filtered = getProductsByCategory(categoryFilter);
+  }
+
+  // Then apply the active filter (unless we're already filtered by category)
+  if (!categoryFilter || activeFilter !== 'all') {
+    switch (activeFilter) {
+      case 'featured':
+        filtered = getFeaturedProducts();
+        break;
+      case 'new':
+        filtered = getNewProducts();
+        break;
+      case 'sale':
+        filtered = getProductsOnSale();
+        break;
+      default:
+        if (activeFilter !== 'all') {
+          // This handles category filters from the filter options
+          filtered = getProductsByCategory(activeFilter);
+        }
     }
+  }
 
-    // Sort products
-    const sorted = sortProducts(filtered, sortBy);
+  // Sort products
+  const sorted = sortProducts(filtered, sortBy);
 
-    // Apply limit if specified
-    return limit ? sorted.slice(0, limit) : sorted;
-  }, [activeFilter, sortBy, categoryFilter, limit]);
-
+  // Apply limit if specified
+  return limit ? sorted.slice(0, limit) : sorted;
+}, [activeFilter, sortBy, categoryFilter, limit]);
   const handleFilterChange = (filterKey) => {
     setActiveFilter(filterKey);
     setShowFilterDropdown(false);

@@ -57,7 +57,7 @@ export const products = [
     price: 159900,
     originalPrice: 159900,
     image: "https://images.unsplash.com/photo-1695822822491-d92cee704368?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lJTIwMTUlMjBwcm8lMjBtYXh8ZW58MHx8MHx8fDA%3D",
-    category: "accessories",
+    category: "smartphones",
     rating: 4.9,
     reviews: 2341,
     inStock: false,

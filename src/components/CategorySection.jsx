@@ -5,7 +5,6 @@ const CategorySection = ({ showAll = false, limit = 4 }) => {
   const categoriesToShow = showAll ? getFeaturedCategories(8) : getFeaturedCategories(limit);
 
   const handleCategoryClick = (category) => {
-    // Handle category navigation here
     console.log(`Navigate to category: ${category.slug}`);
   };
 
