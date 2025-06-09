@@ -59,7 +59,7 @@ export const categories = [
 
 // Helper functions
 export const getCategoryBySlug = (slug) => {
-  return categories.find(cat => cat.slug === slug);
+  return categories.find(cat => cat.slug.toLowerCase() === slug.toLowerCase());
 };
 
 export const getCategoryById = (id) => {
@@ -77,3 +77,6 @@ export const getAllCategoryNames = () => {
 export const getAllCategorySlugs = () => {
   return categories.map(cat => cat.slug);
 };
+
+
+

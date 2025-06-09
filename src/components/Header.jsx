@@ -1,6 +1,6 @@
 import { ShoppingCart, Menu, Search, Heart, X, User, ChevronUp, ChevronDown } from 'lucide-react';
 import { useWishlist } from '../contexts/WishlistContext';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { getFeaturedCategories, getAllCategoryNames } from '../data/Category';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
@@ -12,7 +12,7 @@ const Header = () => {
   const { cartCount } = useCart();
   const { wishlist } = useWishlist();
 
-  const featuredCategories = getFeaturedCategories(6);
+  const featuredCategories = useMemo(() => getFeaturedCategories(4), []);
   const allCategoriesName = getAllCategoryNames();
 
   const allCategories = [
@@ -28,12 +28,13 @@ const Header = () => {
   const toggleAllCategories = () => setShowAllCategories(!showAllCategories);
 
   const handleCategoryClick = (category) => {
-    console.log(`Navigate to category: ${typeof category === 'string' ? category : category.name}`);
+    const categoryName = typeof category === 'string' ? category : category.name;
+    const categorySlug = categoryName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/category/${categorySlug}`);
     setIsMenuOpen(false);
     setShowAllCategories(false);
   };
 
- 
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -99,7 +100,7 @@ const Header = () => {
 
             {/* Wishlist */}
             <button className="relative p-2 hover:bg-gray-100 rounded-md transition-colors group"
-            onClick={handleClick}>
+              onClick={handleClick}>
               <Heart className="h-5 w-5 text-gray-700 group-hover:text-red-500 transition-colors" />
               {wishlist.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">

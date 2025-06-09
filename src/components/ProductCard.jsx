@@ -1,15 +1,14 @@
-// ProductCard.jsx - Improved version
 import { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { Heart, ShoppingCart, Star, Eye, Zap } from 'lucide-react';
 import { useWishlist } from '../contexts/WishlistContext';
-
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product, viewMode = 'grid' }) => {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [imageLoaded, setImageLoaded] = useState(false);
   const { addToCart } = useCart();
-
+  const navigate = useNavigate();
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-IN', {
@@ -26,18 +25,20 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
 
   const handleToggleWishlist = (e) => {
     e.preventDefault();
-    console.log('Current wishlist:', isInWishlist); // Add this
     if (isInWishlist(product.id)) {
       removeFromWishlist(product.id);
     } else {
       addToWishlist(product);
     }
   };
+
   const handleQuickView = (e) => {
     e.preventDefault();
-    console.log('Quick view:', product.name);
-    // Add your quick view logic here
+    navigate(`/product/${product.id}`);
   };
+
+  // Get the first image from the array or a fallback if none exists
+  const productImage = product.images?.length > 0 ? product.images[0] : '/placeholder-image.jpg';
 
   if (viewMode === 'list') {
     return (
@@ -46,10 +47,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
           {/* Image Section */}
           <div className="relative sm:w-64 h-48 sm:h-auto bg-gray-100 flex-shrink-0">
             <img
-              src={product.image}
+              src={productImage}
               alt={product.name}
-              className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
               onLoad={() => setImageLoaded(true)}
             />
             {!imageLoaded && (
@@ -81,10 +83,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
               className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200"
             >
               <Heart
-                className={`h-4 w-4 ${isInWishlist(product.id)
-                  ? 'fill-red-500 stroke-red-500'
-                  : 'stroke-gray-600 fill-transparent'
-                  }`}
+                className={`h-4 w-4 ${
+                  isInWishlist(product.id)
+                    ? 'fill-red-500 stroke-red-500'
+                    : 'stroke-gray-600 fill-transparent'
+                }`}
               />
             </button>
           </div>
@@ -109,10 +112,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`h-4 w-4 ${i < Math.floor(product.rating)
-                      ? 'text-yellow-400 fill-current'
-                      : 'text-gray-300'
-                      }`}
+                    className={`h-4 w-4 ${
+                      i < Math.floor(product.rating)
+                        ? 'text-yellow-400 fill-current'
+                        : 'text-gray-300'
+                    }`}
                   />
                 ))}
               </div>
@@ -144,10 +148,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
                 <button
                   onClick={handleAddToCart}
                   disabled={!product.inStock}
-                  className={`px-6 py-2 rounded-lg font-medium transition-colors ${product.inStock
-                    ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
+                  className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                    product.inStock
+                      ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
                 >
                   {product.inStock ? 'Add to Cart' : 'Out of Stock'}
                 </button>
@@ -165,10 +170,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
       {/* Image Section */}
       <div className="relative aspect-square bg-gray-100 overflow-hidden">
         <img
-          src={product.image}
+          src={productImage}
           alt={product.name}
-          className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+          className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
           onLoad={() => setImageLoaded(true)}
         />
         {!imageLoaded && (
@@ -202,8 +208,9 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
             className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110"
           >
             <Heart
-              className={`h-5 w-5 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-600'
-                }`}
+              className={`h-5 w-5 ${
+                isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-600'
+              }`}
             />
           </button>
           <button
@@ -215,10 +222,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
           <button
             onClick={handleAddToCart}
             disabled={!product.inStock}
-            className={`p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110 ${product.inStock
-              ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
+            className={`p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-110 ${
+              product.inStock
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
           >
             <ShoppingCart className="h-5 w-5" />
           </button>
@@ -230,8 +238,9 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
           className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md sm:opacity-0 group-hover:opacity-100 transition-opacity duration-200"
         >
           <Heart
-            className={`h-4 w-4 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-600'
-              }`}
+            className={`h-4 w-4 ${
+              isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-600'
+            }`}
           />
         </button>
       </div>
@@ -268,10 +277,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
         <button
           onClick={handleAddToCart}
           disabled={!product.inStock}
-          className={`w-full py-2.5 rounded-lg font-medium transition-colors ${product.inStock
-            ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+          className={`w-full py-2.5 rounded-lg font-medium transition-colors ${
+            product.inStock
+              ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
         >
           {product.inStock ? 'Add to Cart' : 'Out of Stock'}
         </button>
