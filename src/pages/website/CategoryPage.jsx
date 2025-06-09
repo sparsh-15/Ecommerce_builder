@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getProductsByCategory } from '../data/Products'; // You'll need to implement this function
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../../components/website/ProductCard';
+import { getProductsByCategory } from '../../data/Products';
 
 const CategoryPage = () => {
   const { categorySlug } = useParams();

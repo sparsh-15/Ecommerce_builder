@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useCart } from '../contexts/CartContext';
 import { Heart, ShoppingCart, Star, Eye, Zap } from 'lucide-react';
-import { useWishlist } from '../contexts/WishlistContext';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../contexts/CartContext';
+import { useWishlist } from '../../contexts/WishlistContext';
 
 const ProductCard = ({ product, viewMode = 'grid' }) => {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();

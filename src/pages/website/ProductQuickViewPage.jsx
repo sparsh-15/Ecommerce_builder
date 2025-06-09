@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ProductQuickView from '../components/ProductQuickView';
-import { getProductById } from '../data/Products';
+import ProductQuickView from '../../components/website/ProductQuickView';
+import { getProductById } from '../../data/Products';
 
 const ProductQuickViewPage = () => {
   const { id } = useParams();

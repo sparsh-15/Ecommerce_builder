@@ -1,9 +1,9 @@
 import { ShoppingCart, Menu, Search, Heart, X, User, ChevronUp, ChevronDown } from 'lucide-react';
-import { useWishlist } from '../contexts/WishlistContext';
+import { useWishlist } from '../../../contexts/WishlistContext';
 import { useMemo, useState } from 'react';
-import { getFeaturedCategories, getAllCategoryNames } from '../data/Category';
+import { getFeaturedCategories, getAllCategoryNames } from '../../../data/Category';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
+import { useCart } from '../../../contexts/CartContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -3,8 +3,9 @@ import {
   ArrowLeft, Star, Heart, ShoppingCart, ChevronUp, ChevronDown,
   Shield, Truck, CreditCard, Check, X, ChevronRight
 } from 'lucide-react';
-import { useCart } from '../contexts/CartContext';
-import { useWishlist } from '../contexts/WishlistContext';
+import { useCart } from '../../contexts/CartContext';
+import { useWishlist } from '../../contexts/WishlistContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const ProductQuickView = ({ product, onClose, recommendedProducts }) => {
@@ -14,14 +15,26 @@ const ProductQuickView = ({ product, onClose, recommendedProducts }) => {
   const [activeTab, setActiveTab] = useState('description');
   const [expandedReviews, setExpandedReviews] = useState(false);
 
-  const { addToCart } = useCart();
+  const { addToCart, clearCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (product?.images?.length > 0) {
       setSelectedImage(product.images[0]);
     }
   }, [product]);
+
+  const handleBuyNow = () => {
+    if (!product.inStock) return;
+
+    // Clear cart and add only this product
+    clearCart();
+    addToCart({ ...product, quantity });
+
+    // Navigate directly to checkout
+    navigate('/checkout');
+  };
 
   // Helper functions
   const formatPrice = (price) =>
@@ -236,14 +249,15 @@ const ProductQuickView = ({ product, onClose, recommendedProducts }) => {
                 {product.inStock ? 'Add to Cart' : 'Out of Stock'}
               </button>
               <button
-                className={`flex-1 py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 ${product.inStock
-                  ? 'bg-orange-600 hover:bg-orange-700 text-white shadow-md hover:shadow-lg'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
+                onClick={handleBuyNow}
                 disabled={!product.inStock}
+                className={`flex-1 py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 ${product.inStock
+                    ? 'bg-orange-600 hover:bg-orange-700 text-white shadow-md hover:shadow-lg'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
               >
                 <CreditCard className="h-5 w-5" />
-                Buy Now
+                {product.inStock ? 'Buy Now' : 'Out of Stock'}
               </button>
             </div>
 

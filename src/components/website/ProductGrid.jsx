@@ -8,8 +8,8 @@ import {
   getProductsOnSale,
   getProductsByCategory,
   sortProducts 
-} from '../data/Products';
-import { categories } from '../data/Category';
+} from '../../data/Products';
+import { categories } from '../../data/Category';
 
 const ProductGrid = ({ 
   title = "Latest Products", 

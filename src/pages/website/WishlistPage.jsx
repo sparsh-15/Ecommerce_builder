@@ -1,5 +1,5 @@
-import { useWishlist } from '../contexts/WishlistContext';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../../components/website/ProductCard';
+import { useWishlist } from '../../contexts/WishlistContext';
 
 
 const WishlistPage = () => {

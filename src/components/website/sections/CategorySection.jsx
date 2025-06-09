@@ -1,5 +1,5 @@
 
-import { getFeaturedCategories } from '../data/Category';
+import { getFeaturedCategories } from '../../../data/Category';
 
 const CategorySection = ({ showAll = false, limit = 4 }) => {
   const categoriesToShow = showAll ? getFeaturedCategories(8) : getFeaturedCategories(limit);

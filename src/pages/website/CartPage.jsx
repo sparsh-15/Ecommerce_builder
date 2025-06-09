@@ -1,20 +1,24 @@
 // pages/CartPage.jsx
-import { useCart } from '../contexts/CartContext';
-import ProductCard from '../components/ProductCard';
+import { useCart } from '../../contexts/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
-  const { 
-    cart, 
-    updateQuantity, 
-    removeFromCart, 
-    cartTotal, 
-    clearCart 
+  const {
+    cart,
+    updateQuantity,
+    removeFromCart,
+    cartTotal,
+    clearCart
   } = useCart();
+
+  const navigate = useNavigate();
+
+
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Your Cart ({cart.length} items)</h1>
-      
+
       {cart.length === 0 ? (
         <div className="text-center py-12">
           <h2 className="text-xl font-medium text-gray-600 mb-4">Your cart is empty</h2>
@@ -25,11 +29,12 @@ const CartPage = () => {
           <div className="lg:w-2/3">
             <div className="grid gap-6">
               {cart.map((product) => (
+                
                 <div key={product.id} className="flex items-start border-b pb-6">
                   <div className="w-24 h-24 flex-shrink-0">
-                    <img 
-                      src={product.image} 
-                      alt={product.name} 
+                    <img
+                      src={product.images?.[0]}
+                      alt={product.name}
                       className="w-full h-full object-cover rounded"
                     />
                   </div>
@@ -43,7 +48,7 @@ const CartPage = () => {
                       }).format(product.price)}
                     </p>
                     <div className="mt-4 flex items-center">
-                      <button 
+                      <button
                         onClick={() => updateQuantity(product.id, product.quantity - 1)}
                         className="px-3 py-1 border rounded-l"
                       >
@@ -52,13 +57,13 @@ const CartPage = () => {
                       <span className="px-4 py-1 border-t border-b">
                         {product.quantity}
                       </span>
-                      <button 
+                      <button
                         onClick={() => updateQuantity(product.id, product.quantity + 1)}
                         className="px-3 py-1 border rounded-r"
                       >
                         +
                       </button>
-                      <button 
+                      <button
                         onClick={() => removeFromCart(product.id)}
                         className="ml-4 text-red-500 text-sm"
                       >
@@ -70,7 +75,7 @@ const CartPage = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="lg:w-1/3">
             <div className="bg-gray-50 p-6 rounded-lg">
               <h2 className="text-lg font-bold mb-4">Order Summary</h2>
@@ -97,10 +102,13 @@ const CartPage = () => {
                   }).format(cartTotal)}
                 </span>
               </div>
-              <button className="w-full mt-6 bg-emerald-600 text-white py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+              <button
+                onClick={() => navigate('/checkout')}
+                className="w-full mt-6 bg-emerald-600 text-white py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+              >
                 Checkout
               </button>
-              <button 
+              <button
                 onClick={clearCart}
                 className="w-full mt-2 text-red-500 py-2 rounded-lg font-medium hover:bg-red-50 transition-colors"
               >

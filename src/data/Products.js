@@ -335,7 +335,7 @@ export const products = [
         price: 1499,
         originalPrice: 1999,
         images: [
-            "https://example.com/anker-charger.jpg",
+            "https://t4.ftcdn.net/jpg/12/85/39/19/240_F_1285391917_lIeEQSaXTnuLYfvj3EfeDosyr6UHWWOG.jpg",
             "https://example.com/anker-charger-side.jpg",
             "https://example.com/anker-charger-box.jpg"
         ],
