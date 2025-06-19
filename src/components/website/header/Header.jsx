@@ -2,7 +2,7 @@ import { ShoppingCart, Menu, Search, Heart, X, User, ChevronUp, ChevronDown } fr
 import { useWishlist } from '../../../contexts/WishlistContext';
 import { useMemo, useState } from 'react';
 import { getFeaturedCategories, getAllCategoryNames } from '../../../data/Category';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../../contexts/CartContext';
 
 const Header = () => {
@@ -59,15 +59,16 @@ const Header = () => {
                 <Menu className="h-6 w-6 text-gray-700" />
               )}
             </button>
-
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
-                <ShoppingCart className="h-5 w-5 text-white" />
+            <Link to={'/'}>
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
+                  <ShoppingCart className="h-5 w-5 text-white" />
+                </div>
+                <h1 className="text-xl sm:text-2xl font-bold text-emerald-600 tracking-tight">
+                  ReactKart
+                </h1>
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold text-emerald-600 tracking-tight">
-                ReactKart
-              </h1>
-            </div>
+            </Link>
           </div>
 
           {/* Center Section - Search Bar (Desktop) */}
